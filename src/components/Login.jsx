@@ -5,6 +5,8 @@ import logo from './../logo.svg'
 const Login = () => {
 
   const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  // const [isButtonAble, setIsButtonAble] = useState(false)
 
   return (
     <div>
@@ -21,11 +23,11 @@ const Login = () => {
             name="password" 
             id="password"
             placeholder="password"
-            // value={username} 
-            // onChange={(e)=>setUsername(e.target.value)}
+            value={password} 
+            onChange={(e)=>setPassword(e.target.value)}
             />
         <button 
-            disabled="disabled"
+            disabled={!username || !password}
             >
             Login
         </button>

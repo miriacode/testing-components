@@ -5,14 +5,14 @@ import { fireEvent, render, screen } from "@testing-library/react"
 
 test('renders username input', () => {
     render(<Login/>);
-    const inputUsername = screen.getByTestId(/usernameInput/i);
-    expect(inputUsername).toBeInTheDocument();
+    const usernameEl = screen.getByTestId(/usernameInput/i);
+    expect(usernameEl).toBeInTheDocument();
 })
 
 test('renders username input', () => { 
     render(<Login/>);
-    const inputPassword = screen.getByPlaceholderText(/password/i);
-    expect(inputPassword).toBeInTheDocument();
+    const passwordEl = screen.getByPlaceholderText(/password/i);
+    expect(passwordEl).toBeInTheDocument();
 })
 
 test('renders login button', () => { 
@@ -30,14 +30,14 @@ test('renders image', () => {
 
 test('username input should be empty', () => {
     render(<Login/>);
-    const username = screen.getByTestId('usernameInput');
-    expect(username.value).toBe("");
+    const usernameEl = screen.getByTestId('usernameInput');
+    expect(usernameEl.value).toBe("");
 })
 
 test('password input should be empty', () => {
     render(<Login/>);
-    const password = screen.getByPlaceholderText('password');
-    expect(password.value).toBe("");
+    const passwordEl = screen.getByPlaceholderText('password');
+    expect(passwordEl.value).toBe("");
 })
 
 test('button should be disabled', () => {
@@ -52,4 +52,26 @@ test('username should change', () => {
     const testValue = "Miriam"
     fireEvent.change(usernameInputEl,{ target: {value: testValue}})
     expect(usernameInputEl.value).toBe(testValue);
+})
+
+test('password should change', () => {
+    render(<Login/>);
+    const passwordInputEl = screen.getByPlaceholderText(/password/i);
+    const testValue = "pass"
+    fireEvent.change(passwordInputEl,{ target: {value: testValue}})
+    expect(passwordInputEl.value).toBe(testValue);
+})
+
+test('button should be able when username and password input are not empty', ()=>{
+    render(<Login/>);
+    const usernameInputEl = screen.getByPlaceholderText(/username/i);
+    const passwordInputEl = screen.getByPlaceholderText(/password/i);
+    const buttonEl = screen.getByRole('button');
+    const testValue1 = "Miriam";
+    const testValue2 = "pass";
+    fireEvent.change(usernameInputEl,{ target: {value: testValue1}});
+    fireEvent.change(passwordInputEl,{ target: {value: testValue2}});
+
+    expect(buttonEl).not.toBeDisabled();
+
 })
